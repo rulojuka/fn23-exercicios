@@ -12,7 +12,26 @@
 </head>
 <body>
     <div> 
-        <h2>Olá, mundo Asp.Net MVC!</h2>
+        <h2>Lista de Posts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Resumo</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in ViewBag.Posts)
+                {
+                    <tr>
+                        <td>@p.Titulo</td>
+                        <td>@p.Resumo</td>
+                        <td>@p.Categoria</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
