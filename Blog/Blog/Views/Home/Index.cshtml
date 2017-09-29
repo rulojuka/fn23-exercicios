@@ -4,7 +4,7 @@
 }
 
 <!DOCTYPE html>
-
+@model IList<Blog.Models.Post>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in ViewBag.Posts)
+                @foreach (var p in Model)
                 {
                     <tr>
                         <td>@p.Titulo</td>
