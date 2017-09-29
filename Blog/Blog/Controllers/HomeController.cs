@@ -9,17 +9,34 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+        private IList<Post> lista;
+
+        public HomeController()
         {
-            var listaDePosts = new List<Post>()
+            this.lista = new List<Post>()
             {
                 new Post { Titulo = "Harry potter 1", Resumo = "Pedra Filosofal", Categoria = "Filme, Livro" },
                 new Post { Titulo = "Cassino Royale", Resumo = "007", Categoria = "Filme" },
                 new Post { Titulo = "Monge e o Executivo", Resumo = "Romance sobre Liderança", Categoria = "Livro" },
                 new Post { Titulo = "New York, New York", Resumo = "Sucesso de Frank Sinatra", Categoria = "Música" }
             };
-            return View(listaDePosts);
+        }
+
+        // GET: Home
+        public ActionResult Index()
+        {
+            return View(lista);
+        }
+
+        public ActionResult NovoPost()
+        {
+            return View();
+        }
+
+        public ActionResult AdicionaPost(Post post)
+        {
+            lista.Add(post);
+            return View("Index", lista);
         }
     }
 }

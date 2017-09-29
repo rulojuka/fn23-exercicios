@@ -1,0 +1,30 @@
+﻿@model Blog.Models.Post
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NovoPost</title>
+</head>
+<body>
+    <div> 
+        <form action="/Home/AdicionaPost">
+            <label>
+                Título: <input name="titulo" />
+            </label>
+            <label>
+                Resumo: <input name="resumo" />
+            </label>
+            <label>
+                Categoria: <input name="categoria" />
+            </label>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+</body>
+</html>
