@@ -1,4 +1,5 @@
-﻿using Blog.Models;
+﻿using Blog.Infra;
+using Blog.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,10 +17,8 @@ namespace Blog.Controllers
         public ActionResult Index()
         {
             var lista = new List<Post>();
-            string stringConexao = ConfigurationManager.ConnectionStrings["blog"].ConnectionString;
-            using (SqlConnection cnx = new SqlConnection(stringConexao))
+            using (SqlConnection cnx = ConnectionFactory.CriaConexaoAberta())
             {
-                cnx.Open();
                 SqlCommand comando = cnx.CreateCommand();
                 comando.CommandText = "select * from Posts";
                 SqlDataReader leitor = comando.ExecuteReader();
@@ -47,9 +46,8 @@ namespace Blog.Controllers
         public ActionResult AdicionaPost(Post post)
         {
             string stringConexao = ConfigurationManager.ConnectionStrings["blog"].ConnectionString;
-            using (SqlConnection cnx = new SqlConnection(stringConexao))
+            using (SqlConnection cnx = ConnectionFactory.CriaConexaoAberta())
             {
-                cnx.Open();
                 SqlCommand comando = cnx.CreateCommand();
                 comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values (@titulo, @resumo, @categoria)";
                 comando.Parameters.Add(new SqlParameter("Titulo", post.Titulo));
