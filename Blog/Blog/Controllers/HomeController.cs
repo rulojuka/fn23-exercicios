@@ -46,8 +46,15 @@ namespace Blog.Controllers
         [HttpPost]
         public ActionResult AdicionaPost(Post post)
         {
-            //lista.Add(post);
-            return View(/*"Index", lista*/);
+            string stringConexao = ConfigurationManager.ConnectionStrings["blog"].ConnectionString;
+            using (SqlConnection cnx = new SqlConnection(stringConexao))
+            {
+                cnx.Open();
+                SqlCommand comando = cnx.CreateCommand();
+                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values ('" + post.Titulo + "','" + post.Resumo + "','" + post.Categoria + "')";
+                comando.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index");
         }
     }
 }
