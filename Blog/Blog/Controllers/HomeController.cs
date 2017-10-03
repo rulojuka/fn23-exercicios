@@ -51,7 +51,10 @@ namespace Blog.Controllers
             {
                 cnx.Open();
                 SqlCommand comando = cnx.CreateCommand();
-                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values ('" + post.Titulo + "','" + post.Resumo + "','" + post.Categoria + "')";
+                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values (@titulo, @resumo, @categoria)";
+                comando.Parameters.Add(new SqlParameter("Titulo", post.Titulo));
+                comando.Parameters.Add(new SqlParameter("Resumo", post.Resumo));
+                comando.Parameters.Add(new SqlParameter("Categoria", post.Categoria));
                 comando.ExecuteNonQuery();
             }
             return RedirectToAction("Index");
