@@ -13,39 +13,21 @@ namespace Blog.DAO
     {
         public void Adiciona(Post post)
         {
-            string stringConexao = ConfigurationManager.ConnectionStrings["blog"].ConnectionString;
-            using (SqlConnection cnx = ConnectionFactory.CriaConexaoAberta())
+            using (BlogContext contexto = new BlogContext())
             {
-                SqlCommand comando = cnx.CreateCommand();
-                comando.CommandText = "insert into Posts (Titulo, Resumo, Categoria) values (@titulo, @resumo, @categoria)";
-                comando.Parameters.Add(new SqlParameter("Titulo", post.Titulo));
-                comando.Parameters.Add(new SqlParameter("Resumo", post.Resumo));
-                comando.Parameters.Add(new SqlParameter("Categoria", post.Categoria));
-                comando.ExecuteNonQuery();
+                contexto.Posts.Add(post);
+                contexto.SaveChanges();
             }
         }
 
         public IList<Post> Lista()
         {
-            var lista = new List<Post>();
-            using (SqlConnection cnx = ConnectionFactory.CriaConexaoAberta())
+            IList<Post> lista;
+            using (BlogContext contexto = new BlogContext())
             {
-                SqlCommand comando = cnx.CreateCommand();
-                comando.CommandText = "select * from Posts";
-                SqlDataReader leitor = comando.ExecuteReader();
-                while (leitor.Read())
-                {
-                    Post post = new Post()
-                    {
-                        Id = Convert.ToInt32(leitor["id"]),
-                        Titulo = Convert.ToString(leitor["titulo"]),
-                        Resumo = Convert.ToString(leitor["resumo"]),
-                        Categoria = Convert.ToString(leitor["categoria"])
-                    };
-                    lista.Add(post);
-                }
+                lista = contexto.Posts.ToList();
+                contexto.SaveChanges();
             }
-
             return lista;
         }
     }
