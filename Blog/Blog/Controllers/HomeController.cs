@@ -37,5 +37,10 @@ namespace Blog.Controllers
             postDAO.Adiciona(post);
             return RedirectToAction("Index");
         }
+
+        public ActionResult Categoria([Bind(Prefix = "id")] string categoria)
+        {
+            return View("Index",postDAO.BuscaCategoria(categoria));
+        }
     }
 }
