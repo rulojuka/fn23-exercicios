@@ -3,6 +3,7 @@ using Blog.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -44,6 +45,35 @@ namespace Blog.DAO
                 //lista = query.ToList();
             }
             return lista;
+        }
+
+        public void Edita(Post post)
+        {
+            using (BlogContext contexto = new BlogContext())
+            {
+                contexto.Entry(post).State = EntityState.Modified;
+                contexto.SaveChanges();
+            }
+        }
+
+        public Post Busca(int id)
+        {
+            Post post;
+            using (BlogContext contexto = new BlogContext())
+            {
+                post = contexto.Posts.Find(id);
+            }
+            return post;
+        }
+
+        public void Remove(int id)
+        {
+            using (BlogContext contexto = new BlogContext())
+            {
+                Post post = contexto.Posts.Find(id);
+                contexto.Posts.Remove(post);
+                contexto.SaveChanges();
+            }
         }
     }
 }

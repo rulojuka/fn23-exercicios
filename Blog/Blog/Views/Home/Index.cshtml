@@ -25,9 +25,10 @@
                 @foreach (var p in Model)
                 {
                     <tr>
-                        <td>@p.Titulo</td>
+                        <td><a href="/Home/Visualiza/@p.Id">@p.Titulo</a></td>
                         <td>@p.Resumo</td>
                         <td>@p.Categoria</td>
+                        <td><a href="/Home/RemovePost/@p.Id">Remover</a></td>
                     </tr>
                 }
             </tbody>
