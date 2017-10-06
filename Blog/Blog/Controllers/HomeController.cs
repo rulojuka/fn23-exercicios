@@ -59,5 +59,11 @@ namespace Blog.Controllers
             postDAO.Edita(post);
             return RedirectToAction("Index");
         }
+
+        public ActionResult PublicaPost(int id)
+        {
+            postDAO.Publica(id);
+            return RedirectToAction("Index");
+        }
     }
 }
