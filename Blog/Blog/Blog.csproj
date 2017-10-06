@@ -109,6 +109,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infra\BlogContext.cs" />
+    <Compile Include="Migrations\201710061919155_Inicial.cs" />
+    <Compile Include="Migrations\201710061919155_Inicial.Designer.cs">
+      <DependentUpon>201710061919155_Inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710061924268_AddInfoPublicacao.cs" />
+    <Compile Include="Migrations\201710061924268_AddInfoPublicacao.Designer.cs">
+      <DependentUpon>201710061924268_AddInfoPublicacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -125,7 +134,14 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710061919155_Inicial.resx">
+      <DependentUpon>201710061919155_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710061924268_AddInfoPublicacao.resx">
+      <DependentUpon>201710061924268_AddInfoPublicacao.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
