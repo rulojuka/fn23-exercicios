@@ -13,24 +13,26 @@
 </head>
 <body>
     <div>
-        <form action="/Home/AdicionaPost" method="post">
-            <label>
-                Título: <input name="titulo" value="@Model.Titulo" required maxlength="20" />
-            </label>
-            @Html.ValidationMessage("titulo")
-            <label>
-                Resumo: <input name="resumo" value="@Model.Resumo" required />
-            </label>
-            @Html.ValidationMessage("resumo")
-            <label>
-                Categoria: <input name="categoria" value="@Model.Categoria" />
-            </label>
-            @Html.ValidationMessage("categoria")
+        @using (Html.BeginForm("AdicionaPost", "Home"))
+        {
+            @Html.LabelFor(p => p.Titulo)
+            @Html.TextBoxFor(p => p.Titulo)
+            @Html.ValidationMessageFor(p => p.Titulo)
+
+            @Html.LabelFor(p => p.Resumo)
+            @Html.TextBoxFor(p => p.Resumo)
+            @Html.ValidationMessageFor(p => p.Resumo)
+
+            @Html.LabelFor(p => p.Categoria)
+            @Html.TextBoxFor(p => p.Categoria)
+            @Html.ValidationMessageFor(p => p.Categoria)
+
             <button type="submit">Cadastrar</button>
-        </form>
+        }
     </div>
     <script src="~/Scripts/jquery-3.2.1.js" />
     <script src="~/Scripts/jquery.validate.js" />
+    <script src="~/Scripts/jquery.validate.unobtrusive.js" />
     <script>
         $("form").validate();
     </script>

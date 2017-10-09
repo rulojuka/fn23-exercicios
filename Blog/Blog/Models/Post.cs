@@ -11,6 +11,7 @@ namespace Blog.Models
         public int Id { get; set; }
         [Required(ErrorMessage="Por favor, preencha o campo Título")]
         [StringLength(20, ErrorMessage = "Digite no máximo 20 caracteres")]
+        [Display(Name = "Título")]
         public string Titulo { get; set; }
         [Required(ErrorMessage = "Por favor, preencha o campo Resumo")]
         public string Resumo { get; set; }
