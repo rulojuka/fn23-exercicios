@@ -79,5 +79,11 @@ namespace Blog.Controllers
             postDAO.Publica(id);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult CategoriaAutocomplete(string term)
+        {
+            return Json(postDAO.Autocomplete(term));
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Blog.DAO
             {
                 //Usando os métodos do LINQ
                 lista = contexto.Posts.Where(post => post.Categoria.Contains(categoria)).ToList();
-                
+
                 // Usando sql no LINQ
                 //var query = from p in contexto.Posts where p.Categoria.Contains(categoria) select p;
                 //lista = query.ToList();
@@ -58,7 +58,7 @@ namespace Blog.DAO
 
         public void Publica(int id)
         {
-            using(var contexto = new BlogContext())
+            using (var contexto = new BlogContext())
             {
                 var post = contexto.Posts.Find(id);
                 post.Publicado = true;
@@ -75,6 +75,19 @@ namespace Blog.DAO
                 post = contexto.Posts.Find(id);
             }
             return post;
+        }
+
+        public IList<string> Autocomplete(string term)
+        {
+            using (BlogContext contexto = new BlogContext())
+            {
+                var model = contexto.Posts
+                    .Where(p => p.Categoria.Contains(term))
+                    .Select(p => p.Categoria )
+                    .Distinct()
+                    .ToList();
+                return model;
+            }
         }
 
         public void Remove(int id)

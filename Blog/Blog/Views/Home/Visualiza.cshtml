@@ -10,6 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Visualiza</title>
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
 </head>
 <body>
     <div>
@@ -24,11 +25,22 @@
             <button type="submit">Editar</button>
         }
     </div>
-    <script src="~/Scripts/jquery-3.2.1.js" />
-    <script src="~/Scripts/jquery.validate.js" />
-    <script src="~/Scripts/jquery.validate.unobtrusive.js" />
+    <script src="/Scripts/jquery-3.2.1.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Scripts/jquery-ui-1.12.1.js"></script>
     <script>
-        $("form").validate();
+        $("input[name=Categoria]").autocomplete({
+            source: function (request, response) {
+                $.post(
+                    "@Url.Action("CategoriaAutocomplete")",
+                    { term: request.term },
+                    function (data) {
+                        response(data);
+                    }
+                );
+            }
+        });
     </script>
 </body>
 </html>
