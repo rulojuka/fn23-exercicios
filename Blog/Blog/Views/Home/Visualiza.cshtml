@@ -12,15 +12,15 @@
     <title>Visualiza</title>
 </head>
 <body>
-    <div> 
+    <div>
         <form action="/Home/EditaPost" method="post">
             <input type="hidden" name="id" value="@Model.Id" />
             <label>
-                Título: <input name="titulo" value="@Model.Titulo" />
+                Título: <input name="titulo" value="@Model.Titulo" required maxlength="20" />
             </label>
             @Html.ValidationMessage("titulo")
             <label>
-                Resumo: <input name="resumo" value="@Model.Resumo" />
+                Resumo: <input name="resumo" value="@Model.Resumo" required />
             </label>
             @Html.ValidationMessage("resumo")
             <label>
@@ -30,5 +30,10 @@
             <button type="submit">Editar</button>
         </form>
     </div>
+    <script src="~/Scripts/jquery-3.2.1.js" />
+    <script src="~/Scripts/jquery.validate.js" />
+    <script>
+        $("form").validate();
+    </script>
 </body>
 </html>
