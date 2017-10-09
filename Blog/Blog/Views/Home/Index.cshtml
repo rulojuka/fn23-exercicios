@@ -27,7 +27,7 @@
                 @foreach (var p in Model)
                 {
                     <tr>
-                        <td><a href="/Home/Visualiza/@p.Id">@p.Titulo</a></td>
+                        <td>@Html.ActionLink(p.Titulo,"Visualiza", new { id = p.Id })</td>
                         <td>@p.Resumo</td>
                         <td>@p.Categoria</td>
                         <td>
@@ -41,13 +41,14 @@
                             }
                         </td>
                         <td>
-                            <a href="/Home/RemovePost/@p.Id">Remover</a>
-                            <a href="/Home/PublicaPost/@p.Id">Publicar</a>
+                            @Html.ActionLink("Remover", "RemovePost", new { id = p.Id })
+                            @Html.ActionLink("Publicar", "PublicaPost", new { id = p.Id })
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+        @Html.ActionLink("Novo post", "NovoPost")
     </div>
 </body>
 </html>
