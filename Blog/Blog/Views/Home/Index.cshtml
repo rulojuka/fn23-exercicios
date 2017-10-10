@@ -1,69 +1,56 @@
-﻿
-@{
-    Layout = null;
-}
+﻿@model IList<Blog.Models.Post>
 
-<!DOCTYPE html>
-@model IList<Blog.Models.Post>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
-        <h2>Lista de Posts</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Resumo</th>
-                    <th>Categoria</th>
-                    <th>Publicado?</th>
-                    <th>Ações</th>
+<div>
+    <h2>Lista de Posts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Resumo</th>
+                <th>Categoria</th>
+                <th>Publicado?</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr class="post">
+                    <td>@Html.ActionLink(p.Titulo, "Visualiza", new { id = p.Id })</td>
+                    <td>@p.Resumo</td>
+                    <td>@p.Categoria</td>
+                    <td>
+                        @if (p.Publicado)
+                        {
+                            @Html.Raw(string.Format("{0:dd/MM/yyyy}", p.DataPublicacao))
+                        }
+                        else
+                        {
+                            @Html.Raw("Não")
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Remover", "RemovePost", new { id = p.Id }, new { @class = "postSubmit", id = p.Id })
+                        @Html.ActionLink("Publicar", "PublicaPost", new { id = p.Id })
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var p in Model)
-                {
-                    <tr class="post">
-                        <td>@Html.ActionLink(p.Titulo,"Visualiza", new { id = p.Id })</td>
-                        <td>@p.Resumo</td>
-                        <td>@p.Categoria</td>
-                        <td>
-                            @if (p.Publicado)
-                            {
-                                @Html.Raw(string.Format("{0:dd/MM/yyyy}", p.DataPublicacao))
-                            }
-                            else
-                            {
-                                @Html.Raw("Não")
-                            }
-                        </td>
-                        <td>
-                            @Html.ActionLink("Remover", "RemovePost", new { id = p.Id }, new { @class = "postSubmit", id = p.Id })
-                            @Html.ActionLink("Publicar", "PublicaPost", new { id = p.Id })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        @Html.ActionLink("Novo post", "NovoPost")
-    </div>
-    <script src="/Scripts/jquery-3.2.1.js"></script>
-    <script>
-        $(".postSubmit").click(function (event) {
-            event.preventDefault();
-            self = $(this);
-            alert("Clicou, mandando requisicao assincrona");
-            link = "/Home/RemovePost/" + $(this).attr("id");
-            alert("chamando a url: " + link);
-            $.get(link,
-                 function (data) {
-                     alert("deu certo, removendo tr");
-                     self.closest(".post").remove();
-                });
-        });
-    </script>
-</body>
-</html>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Novo post", "NovoPost")
+</div>
+<script src="/Scripts/jquery-3.2.1.js"></script>
+<script>
+    $(".postSubmit").click(function (event) {
+        event.preventDefault();
+        self = $(this);
+        alert("Clicou, mandando requisicao assincrona");
+        link = "/Home/RemovePost/" + $(this).attr("id");
+        alert("chamando a url: " + link);
+        $.get(link,
+            function (data) {
+                alert("deu certo, removendo tr");
+                self.closest(".post").remove();
+            });
+    });
+</script>
