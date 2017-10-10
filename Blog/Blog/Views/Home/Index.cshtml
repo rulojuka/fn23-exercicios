@@ -26,7 +26,7 @@
             <tbody>
                 @foreach (var p in Model)
                 {
-                    <tr>
+                    <tr class="post">
                         <td>@Html.ActionLink(p.Titulo,"Visualiza", new { id = p.Id })</td>
                         <td>@p.Resumo</td>
                         <td>@p.Categoria</td>
@@ -41,7 +41,7 @@
                             }
                         </td>
                         <td>
-                            @Html.ActionLink("Remover", "RemovePost", new { id = p.Id })
+                            @Html.ActionLink("Remover", "RemovePost", new { id = p.Id }, new { @class = "postSubmit", id = p.Id })
                             @Html.ActionLink("Publicar", "PublicaPost", new { id = p.Id })
                         </td>
                     </tr>
@@ -50,5 +50,20 @@
         </table>
         @Html.ActionLink("Novo post", "NovoPost")
     </div>
+    <script src="/Scripts/jquery-3.2.1.js"></script>
+    <script>
+        $(".postSubmit").click(function (event) {
+            event.preventDefault();
+            self = $(this);
+            alert("Clicou, mandando requisicao assincrona");
+            link = "/Home/RemovePost/" + $(this).attr("id");
+            alert("chamando a url: " + link);
+            $.get(link,
+                 function (data) {
+                     alert("deu certo, removendo tr");
+                     self.closest(".post").remove();
+                });
+        });
+    </script>
 </body>
 </html>
