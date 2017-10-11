@@ -6,9 +6,19 @@
     <title>Resenha Cultural</title>
     <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="~/Content/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/Content/estilo.css" type="text/css" />
+
 </head>
 <body>
-    @RenderBody()
+    @Html.Partial("Cabecalho")
+
+    <div class="container">
+        <main>
+            @RenderBody()
+        </main>
+        @Html.Partial("Lateral")
+    </div>
+    @Html.Partial("Rodape")
 
     @RenderSection("Scripts", false)
 </body>
