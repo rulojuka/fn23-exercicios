@@ -58,7 +58,7 @@ namespace Blog.Controllers
 
         public ActionResult Visualiza(int id)
         {
-            return View(postDAO.Busca(id));
+            return View(postDAO.BuscaPost(id));
         }
 
         public ActionResult EditaPost(Post post)
@@ -84,6 +84,15 @@ namespace Blog.Controllers
         public ActionResult CategoriaAutocomplete(string term)
         {
             return Json(postDAO.Autocomplete(term));
+        }
+
+        public ActionResult Busca(string termo)
+        {
+            IList<Post> lista = postDAO.Busca(termo);
+            ViewBag.FezBusca = true;
+            ViewBag.Vazio = (lista.Count == 0);
+            ViewBag.Termo = termo;
+            return View("Index", lista);
         }
     }
 }

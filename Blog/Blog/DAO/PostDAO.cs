@@ -67,7 +67,7 @@ namespace Blog.DAO
             }
         }
 
-        public Post Busca(int id)
+        public Post BuscaPost(int id)
         {
             Post post;
             using (BlogContext contexto = new BlogContext())
@@ -97,6 +97,17 @@ namespace Blog.DAO
                 Post post = contexto.Posts.Find(id);
                 contexto.Posts.Remove(post);
                 contexto.SaveChanges();
+            }
+        }
+
+        public IList<Post> Busca(string termo)
+        {
+            using (BlogContext contexto = new BlogContext())
+            {
+                return contexto.Posts
+                    .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Categoria.Contains(termo)))
+                    .Select(p => p)
+                    .ToList();
             }
         }
     }
