@@ -102,6 +102,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\estilo-admin.css" />
     <Content Include="Content\estilo.css" />
     <Content Include="Content\images\back.png" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -155,6 +156,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\MenuAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Novo.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\Edit.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -173,6 +181,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAO\PostDAO.cs" />
     <Compile Include="Global.asax.cs">
@@ -201,14 +211,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\NovoPost.cshtml" />
-    <Content Include="Views\Home\Visualiza.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
-    <Content Include="Views\Shared\EditorTemplates\Post.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Post.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Scripts.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Scripts.cshtml" />
     <Content Include="Views\Shared\Cabecalho.cshtml" />
     <Content Include="Views\Shared\Rodape.cshtml" />
     <Content Include="Views\Shared\Lateral.cshtml" />
@@ -230,7 +238,9 @@
       <DependentUpon>201710090356199_ValidacaoPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

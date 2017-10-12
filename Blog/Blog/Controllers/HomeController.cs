@@ -26,58 +26,9 @@ namespace Blog.Controllers
             return View(postDAO.Lista());
         }
 
-        public ActionResult NovoPost()
-        {
-            return View(new Post());
-        }
-
-        [HttpPost]
-        public ActionResult AdicionaPost(Post post)
-        {
-            if (ModelState.IsValid)
-            {
-                postDAO.Adiciona(post);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View("NovoPost",post);
-            }
-        }
-
         public ActionResult Categoria([Bind(Prefix = "id")] string categoria)
         {
             return View("Index", postDAO.BuscaCategoria(categoria));
-        }
-
-        public ActionResult RemovePost(int id)
-        {
-            postDAO.Remove(id);
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Visualiza(int id)
-        {
-            return View(postDAO.BuscaPost(id));
-        }
-
-        public ActionResult EditaPost(Post post)
-        {
-            if (ModelState.IsValid)
-            {
-                postDAO.Edita(post);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View("Visualiza", post);
-            }
-        }
-
-        public ActionResult PublicaPost(int id)
-        {
-            postDAO.Publica(id);
-            return RedirectToAction("Index");
         }
 
         [HttpPost]
