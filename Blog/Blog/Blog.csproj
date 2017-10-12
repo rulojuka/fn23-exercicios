@@ -219,7 +219,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DAO\PostDAO.cs" />
+    <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,9 +257,14 @@
     <Compile Include="Migrations\201710121556442_Autor.Designer.cs">
       <DependentUpon>201710121556442_Autor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802091534367_AdicionaNullableUltimoLogin.cs" />
+    <Compile Include="Migrations\201802091534367_AdicionaNullableUltimoLogin.Designer.cs">
+      <DependentUpon>201802091534367_AdicionaNullableUltimoLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\RegistroViewModel.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -277,6 +285,9 @@
     <Content Include="Views\Shared\Rodape.cshtml" />
     <Content Include="Views\Shared\Lateral.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Usuario\Registro.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RegistroViewModel.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -299,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710121556442_Autor.resx">
       <DependentUpon>201710121556442_Autor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802091534367_AdicionaNullableUltimoLogin.resx">
+      <DependentUpon>201802091534367_AdicionaNullableUltimoLogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

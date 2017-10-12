@@ -8,7 +8,7 @@ namespace Blog.Models
 {
     public class Usuario : IdentityUser
     {
-        public DateTime UltimoLogin { get; set; }
+        public DateTime? UltimoLogin { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
 }

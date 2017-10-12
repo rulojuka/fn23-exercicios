@@ -1,4 +1,5 @@
-﻿using Blog.Models;
+﻿using Blog.DAO;
+using Blog.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -13,6 +14,14 @@ namespace Blog.Controllers
 {
     public class UsuarioController : Controller
     {
+
+        UsuarioDAO usuarioDAO;
+
+        public UsuarioController(UsuarioDAO usuarioDAO)
+        {
+            this.usuarioDAO = usuarioDAO;
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -30,6 +39,7 @@ namespace Blog.Controllers
                 {
                     ClaimsIdentity identity = manager.CreateIdentity(usuario, DefaultAuthenticationTypes.ApplicationCookie);
                     HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties() { }, identity);
+                    usuarioDAO.AtualizaLogin(usuario);
                 }
                 return RedirectToAction("Index", "Post", new { area = "Admin" });
             }
@@ -43,6 +53,44 @@ namespace Blog.Controllers
         {
             HttpContext.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult Registro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registro(RegistroViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = new Usuario()
+                {
+                    UserName = model.LoginName,
+                    Email = model.Email
+                };
+                UsuarioManager manager = HttpContext.GetOwinContext().GetUserManager<UsuarioManager>();
+                IdentityResult resultado = manager.Create(usuario, model.Senha);
+                if (resultado.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach(string erro in resultado.Errors)
+                    {
+                        ModelState.AddModelError("blabla", erro);
+                    }
+                }
+            }
+            return View(model);
+        }
+        [Authorize]
+        public ActionResult Index()
+        {
+            return View(usuarioDAO.Lista());
         }
     }
 }
