@@ -12,9 +12,9 @@ namespace Blog.Areas.Admin.Controllers
     {
         PostDAO postDAO;
 
-        public PostController()
+        public PostController(PostDAO postDAO)
         {
-            this.postDAO = new PostDAO();
+            this.postDAO = postDAO;
         }
 
         // GET: Admin/Post

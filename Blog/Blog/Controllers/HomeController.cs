@@ -15,9 +15,9 @@ namespace Blog.Controllers
     {
         PostDAO postDAO;
 
-        public HomeController()
+        public HomeController(PostDAO postDAO)
         {
-            postDAO = new PostDAO();
+            this.postDAO = postDAO;
         }
 
         // GET: Home
