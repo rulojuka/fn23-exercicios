@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Blog.Areas.Admin.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         PostDAO postDAO;

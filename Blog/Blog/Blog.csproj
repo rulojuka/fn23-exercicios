@@ -222,6 +222,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -245,9 +246,15 @@
     <Compile Include="Migrations\201710090356199_ValidacaoPost.Designer.cs">
       <DependentUpon>201710090356199_ValidacaoPost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710121052549_AdicionaIdentity.cs" />
+    <Compile Include="Migrations\201710121052549_AdicionaIdentity.Designer.cs">
+      <DependentUpon>201710121052549_AdicionaIdentity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\UsuarioManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710090356199_ValidacaoPost.resx">
       <DependentUpon>201710090356199_ValidacaoPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710121052549_AdicionaIdentity.resx">
+      <DependentUpon>201710121052549_AdicionaIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
