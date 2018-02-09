@@ -1,5 +1,7 @@
 ﻿using Blog.Infra;
 using Blog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,8 +20,9 @@ namespace Blog.DAO
         {
             this.contexto = contexto;
         }
-        public void Adiciona(Post post)
+        public void Adiciona(Post post, Usuario usuario)
         {
+            post.Autor = usuario;
             contexto.Posts.Add(post);
             contexto.SaveChanges();
         }

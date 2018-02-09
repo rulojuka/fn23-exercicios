@@ -6,6 +6,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
+using System.Web.Mvc;
+
 namespace Blog.DAO
 {
     public class UsuarioDAO
@@ -28,6 +34,12 @@ namespace Blog.DAO
             Usuario usuarioDoBanco = contexto.Users.Find(usuario.Id);
             usuarioDoBanco.UltimoLogin = DateTime.Now;
             contexto.SaveChanges();
+        }
+
+        public Usuario UsuarioLogado()
+        {
+            UsuarioManager manager = HttpContext.Current.GetOwinContext().GetUserManager<UsuarioManager>();
+            return contexto.Users.Find(HttpContext.Current.User.Identity.GetUserId());
         }
     }
 }
