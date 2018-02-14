@@ -16,11 +16,18 @@ namespace Blog.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
+            BlogContext contexto = new BlogContext();
+
             /*Cria uma instância de UsuarioManager que será injetada nas requisições HTTP pelo OWIN*/
             app.CreatePerOwinContext<UsuarioManager>(() => {
-                BlogContext contexto = new BlogContext();
-                UserStore<Usuario> userStore = new UserStore<Usuario>(contexto);
+                IUserStore<Usuario> userStore = new UserStore<Usuario>(contexto);
                 return new UsuarioManager(userStore);
+            });
+
+            app.CreatePerOwinContext<PermissaoManager>(() =>
+            {
+                IRoleStore<IdentityRole,string> roleStore = new RoleStore<IdentityRole>(contexto);
+                return new PermissaoManager(roleStore);
             });
 
             /*Usa cookies como forma de autenticação*/
