@@ -1,5 +1,6 @@
 ﻿using Blog.Infra;
 using Blog.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -66,6 +67,17 @@ namespace Blog.DAO
             using (var contexto = new BlogContext())
             {
                 contexto.Entry(post).State = EntityState.Modified;
+                contexto.SaveChanges();
+            }
+        }
+
+        public void Publica(int id)
+        {
+            using (var contexto = new BlogContext())
+            {
+                var post = contexto.Posts.Find(id);
+                post.Publicado = true;
+                post.DataPublicacao = DateTime.Now;
                 contexto.SaveChanges();
             }
         }
