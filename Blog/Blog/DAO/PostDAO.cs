@@ -1,6 +1,7 @@
 ﻿using Blog.Infra;
 using Blog.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -33,6 +34,39 @@ namespace Blog.DAO
                 //var lista = contexto.Posts.Where(post => post.Categoria.Contains(categoria)).ToList();
                 var lista = (from p in contexto.Posts where p.Categoria.Contains(categoria) select p).ToList();
                 return lista;
+            }
+        }
+
+        public void Remove(int id)
+        {
+            using (var contexto = new BlogContext())
+            {
+                var post = contexto.Posts.Find(id);
+                contexto.Posts.Remove(post);
+                contexto.SaveChanges();
+
+                // Para fazer em apenas uma query
+                //Post post = new Post { Id = id };
+                //contexto.Entry(post).State = EntityState.Deleted;
+                //contexto.SaveChanges();
+            }
+        }
+
+        public Post BuscaPorId(int id)
+        {
+            using (var contexto = new BlogContext())
+            {
+                var post = contexto.Posts.Find(id);
+                return post;
+            }
+        }
+
+        public void Atualiza(Post post)
+        {
+            using (var contexto = new BlogContext())
+            {
+                contexto.Entry(post).State = EntityState.Modified;
+                contexto.SaveChanges();
             }
         }
     }
