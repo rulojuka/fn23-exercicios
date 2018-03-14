@@ -119,6 +119,10 @@
     <Compile Include="Migrations\201803142050335_AddInfoPublicacao.Designer.cs">
       <DependentUpon>201803142050335_AddInfoPublicacao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803142122050_ValidacaoPost.cs" />
+    <Compile Include="Migrations\201803142122050_ValidacaoPost.Designer.cs">
+      <DependentUpon>201803142122050_ValidacaoPost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -143,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803142050335_AddInfoPublicacao.resx">
       <DependentUpon>201803142050335_AddInfoPublicacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803142122050_ValidacaoPost.resx">
+      <DependentUpon>201803142122050_ValidacaoPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

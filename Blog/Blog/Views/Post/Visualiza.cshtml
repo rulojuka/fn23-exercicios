@@ -13,12 +13,15 @@
             <label>
                 Título: <input name="titulo" value="@Model.Titulo" />
             </label>
+            @Html.ValidationMessage("titulo")
             <label>
                 Resumo: <input name="resumo" value="@Model.Resumo" />
             </label>
+            @Html.ValidationMessage("resumo")
             <label>
                 Categoria: <input name="categoria" value="@Model.Categoria" />
             </label>
+            @Html.ValidationMessage("categoria")
             <button type="submit">Cadastrar</button>
         </form>
     </div>
