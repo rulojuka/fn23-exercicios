@@ -8,28 +8,31 @@
 </head>
 <body>
     <div> 
-        <form action="/Post/EditaPost" method="post">
-            <input type="hidden" name="id" value="@Model.Id" />
-            <label>
-                Título: <input name="titulo" maxlength="50" required value="@Model.Titulo" />
-            </label>
-            @Html.ValidationMessage("titulo")
-            <label>
-                Resumo: <input name="resumo" required value="@Model.Resumo" />
-            </label>
-            @Html.ValidationMessage("resumo")
-            <label>
-                Categoria: <input name="categoria" value="@Model.Categoria" />
-            </label>
-            @Html.ValidationMessage("categoria")
+        @using (Html.BeginForm("EditaPost", "Post"))
+        {
+
+            @Html.HiddenFor(p => p.Id)
+            @Html.HiddenFor(p => p.Publicado)
+            @Html.HiddenFor(p => p.DataPublicacao)
+
+            @Html.LabelFor(p => p.Titulo)
+            @Html.TextBoxFor(p => p.Titulo)
+            @Html.ValidationMessageFor(p => p.Titulo)
+
+            @Html.LabelFor(p => p.Resumo)
+            @Html.TextBoxFor(p => p.Resumo)
+            @Html.ValidationMessageFor(p => p.Resumo)
+
+            @Html.LabelFor(p => p.Categoria)
+            @Html.TextBoxFor(p => p.Categoria)
+            @Html.ValidationMessageFor(p => p.Categoria)
+
             <button type="submit">Cadastrar</button>
-        </form>
+        }
     </div>
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
-    <script>
-        $("form").validate();
-    </script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 </body>
 </html>
 
