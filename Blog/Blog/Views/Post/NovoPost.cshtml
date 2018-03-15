@@ -10,6 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>NovoPost</title>
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
 </head>
 <body>
     <div> 
@@ -22,5 +23,18 @@
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script>
+        $("input[name='Categoria']").autocomplete({
+            source: function (request, response) {
+                $.post(
+                    "@Url.Action("CategoriaAutocomplete")",
+                    { termoDigitado: request.term },
+                    function (data) {
+                        response(data);
+                    });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -81,5 +81,17 @@ namespace Blog.DAO
                 contexto.SaveChanges();
             }
         }
+
+        public IList<string> ListaCategoriasQueContemTermo(string termo)
+        {
+            using (var contexto = new BlogContext())
+            {
+                return contexto.Posts
+                            .Where(p => p.Categoria.Contains(termo))
+                            .Select(p => p.Categoria)
+                            .Distinct()
+                            .ToList();
+            }
+        }
     }
 }
