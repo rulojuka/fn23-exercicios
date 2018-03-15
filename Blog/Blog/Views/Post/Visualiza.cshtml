@@ -11,11 +11,11 @@
         <form action="/Post/EditaPost" method="post">
             <input type="hidden" name="id" value="@Model.Id" />
             <label>
-                Título: <input name="titulo" value="@Model.Titulo" />
+                Título: <input name="titulo" maxlength="50" required value="@Model.Titulo" />
             </label>
             @Html.ValidationMessage("titulo")
             <label>
-                Resumo: <input name="resumo" value="@Model.Resumo" />
+                Resumo: <input name="resumo" required value="@Model.Resumo" />
             </label>
             @Html.ValidationMessage("resumo")
             <label>
@@ -25,6 +25,11 @@
             <button type="submit">Cadastrar</button>
         </form>
     </div>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script>
+        $("form").validate();
+    </script>
 </body>
 </html>
 
