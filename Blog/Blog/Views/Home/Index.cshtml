@@ -1,3 +1,10 @@
-﻿<div>
-    <h2>Olá, mundo ASP.NET MVC!</h2>
+﻿@model IList<Blog.Models.Post>
+<div>
+    @foreach (var p in Model)
+    {
+        <article>
+            <h1>@p.Titulo</h1>
+            <p>@p.Resumo</p>
+        </article>
+    }
 </div>

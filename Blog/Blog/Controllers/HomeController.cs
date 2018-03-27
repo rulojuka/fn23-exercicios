@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using Blog.DAO;
+using Blog.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
@@ -7,7 +10,9 @@ namespace Blog.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            PostDAO dao = new PostDAO();
+            IList<Post> publicados = dao.ListaPublicados();
+            return View(publicados);
         }
     }
 }
