@@ -1,7 +1,16 @@
 ﻿<aside>
     <div>
         <h3>Buscar</h3>
-        <!-- aqui será exibido um formulário para buscar posts por um termo -->
+        @using (Html.BeginForm("Busca", "Home", FormMethod.Get, new { @class = "inline-form" }))
+        {
+            <div class="input-group">
+                @Html.TextBox("termo", null, new { @class = "form-control", placeholder = "Buscar por..." })
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Ok</button>
+                </span>
+            </div>
+            <!-- /input-group -->
+        }
     </div>
     <div id="categorias">
         <h3>Categorias</h3>

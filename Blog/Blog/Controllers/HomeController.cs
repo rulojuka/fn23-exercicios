@@ -14,5 +14,13 @@ namespace Blog.Controllers
             IList<Post> publicados = dao.ListaPublicados();
             return View(publicados);
         }
+
+        public ActionResult Busca(string termo)
+        {
+            PostDAO dao = new PostDAO();
+            IList<Post> posts = dao.BuscaPeloTermo(termo);
+            ViewBag.Termo = termo;
+            return View("Index", posts);
+        }
     }
 }
