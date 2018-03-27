@@ -1,4 +1,5 @@
 ﻿using Blog.DAO;
+using Blog.Infra;
 using Blog.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -7,11 +8,28 @@ namespace Blog.Areas.Admin.Controllers
 {
     public class PostController : Controller
     {
+        private BlogContext contexto;
+        private PostDAO dao;
+
+        public PostController()
+        {
+            contexto = new BlogContext();
+            dao = new PostDAO(contexto);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                contexto.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         // GET: Post
         public ActionResult Index()
         {
-            PostDAO postDAO = new PostDAO();
-            var listaDePosts = postDAO.Lista();
+            var listaDePosts = dao.Lista();
             return View(listaDePosts);
         }
 
@@ -25,7 +43,6 @@ namespace Blog.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                PostDAO dao = new PostDAO();
                 dao.Adiciona(post);
                 return RedirectToAction("Index");
             }
@@ -38,21 +55,18 @@ namespace Blog.Areas.Admin.Controllers
 
         public ActionResult Categoria([Bind(Prefix = "id")] string categoria)
         {
-            PostDAO dao = new PostDAO();
             IList<Post> lista = dao.FiltraPorCategoria(categoria);
             return View("Index", lista);
         }
 
         public ActionResult RemovePost(int id)
         {
-            PostDAO dao = new PostDAO();
             dao.Remove(id);
             return RedirectToAction("Index");
         }
 
         public ActionResult Visualiza(int id)
         {
-            PostDAO dao = new PostDAO();
             Post post = dao.BuscaPorId(id);
             return View(post);
         }
@@ -62,7 +76,6 @@ namespace Blog.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                PostDAO dao = new PostDAO();
                 dao.Atualiza(post);
                 return RedirectToAction("Index");
             }
@@ -75,7 +88,6 @@ namespace Blog.Areas.Admin.Controllers
 
         public ActionResult PublicaPost(int id)
         {
-            PostDAO dao = new PostDAO();
             dao.Publica(id);
             return RedirectToAction("Index");
         }
@@ -83,7 +95,6 @@ namespace Blog.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult CategoriaAutocomplete(string termoDigitado)
         {
-            PostDAO dao = new PostDAO();
             var model = dao.ListaCategoriasQueContemTermo(termoDigitado);
             return Json(model);
         }
