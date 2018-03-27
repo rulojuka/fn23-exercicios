@@ -8,22 +8,11 @@ namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        private BlogContext contexto;
         private PostDAO dao;
 
-        public HomeController()
+        public HomeController(PostDAO dao)
         {
-            contexto = new BlogContext();
-            dao = new PostDAO(contexto);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                contexto.Dispose();
-            }
-            base.Dispose(disposing);
+            this.dao = dao;
         }
 
         // GET: Home
