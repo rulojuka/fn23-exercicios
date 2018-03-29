@@ -13,6 +13,10 @@
         <article>
             <h1>@p.Titulo</h1>
             <p>@p.Resumo</p>
+            @if (@p.Autor != null)
+            {
+                <p><small>Escrito por @p.Autor.Nome</small></p>
+            }
         </article>
     }
 </div>

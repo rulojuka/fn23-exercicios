@@ -34,6 +34,7 @@ namespace Blog.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                post.Autor = (Usuario) Session["usuario"];
                 dao.Adiciona(post);
                 return RedirectToAction("Index");
             }
