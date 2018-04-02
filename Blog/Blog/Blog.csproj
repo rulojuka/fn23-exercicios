@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201804020636499_AdicionaUsuario.Designer.cs">
       <DependentUpon>201804020636499_AdicionaUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804020704533_RelacionamentoAutorPosts.cs" />
+    <Compile Include="Migrations\201804020704533_RelacionamentoAutorPosts.Designer.cs">
+      <DependentUpon>201804020704533_RelacionamentoAutorPosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Post.cs" />
@@ -294,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804020636499_AdicionaUsuario.resx">
       <DependentUpon>201804020636499_AdicionaUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804020704533_RelacionamentoAutorPosts.resx">
+      <DependentUpon>201804020704533_RelacionamentoAutorPosts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
