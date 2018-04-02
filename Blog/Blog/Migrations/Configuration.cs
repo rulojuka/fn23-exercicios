@@ -16,14 +16,6 @@ namespace Blog.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            Usuario usuarioAdmin = new Usuario
-            {
-                Id = 1,
-                Nome = "admin",
-                Email = "admin@caelum.com.br",
-                Senha = "123456"
-            };
-            context.Usuarios.AddOrUpdate(usuarioAdmin);
         }
     }
 }
