@@ -220,6 +220,7 @@
     <Compile Include="Areas\Admin\Controllers\PostController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DAO\PostDAO.cs" />
+    <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -237,9 +238,14 @@
     <Compile Include="Migrations\201803142122050_ValidacaoPost.Designer.cs">
       <DependentUpon>201803142122050_ValidacaoPost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804020636499_AdicionaUsuario.cs" />
+    <Compile Include="Migrations\201804020636499_AdicionaUsuario.Designer.cs">
+      <DependentUpon>201804020636499_AdicionaUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +291,9 @@
     <EmbeddedResource Include="Migrations\201803142122050_ValidacaoPost.resx">
       <DependentUpon>201803142122050_ValidacaoPost.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804020636499_AdicionaUsuario.resx">
+      <DependentUpon>201804020636499_AdicionaUsuario.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
@@ -307,7 +316,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49528</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
