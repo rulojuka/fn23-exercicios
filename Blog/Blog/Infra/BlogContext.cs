@@ -1,10 +1,11 @@
 ﻿using Blog.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Diagnostics;
 
 namespace Blog.Infra
 {
-    public class BlogContext : DbContext
+    public class BlogContext : IdentityDbContext<Usuario>
     {
         public BlogContext() : base("name=blog")
         {
@@ -13,6 +14,5 @@ namespace Blog.Infra
         }
 
         public DbSet<Post> Posts { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
     }
 }

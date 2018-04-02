@@ -1,13 +1,11 @@
 ﻿using Blog.DAO;
-using Blog.Filters;
-using Blog.Infra;
 using Blog.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Blog.Areas.Admin.Controllers
 {
-    [AutorizacaoFilter]
+    [Authorize]
     public class PostController : Controller
     {
         private PostDAO dao;

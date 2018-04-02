@@ -1,21 +1,12 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
 
 namespace Blog.Models
 {
-    public class Usuario
+    public class Usuario : IdentityUser
     {
-        public int Id { get; set; }
-
-        [Required]
-        public string Nome { get; set; }
-
-        [Required]
-        public string Email { get; set; }
-
-        [Required]
-        public string Senha { get; set; }
-
+        public DateTime? UltimoLogin { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
 }

@@ -1,6 +1,12 @@
 ﻿using Blog.DAO;
-using Blog.Filters;
+using Blog.Infra;
 using Blog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using System;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
@@ -19,7 +25,7 @@ namespace Blog.Controllers
             return View();
         }
 
-        [AutorizacaoFilter]
+        [Authorize]
         public ActionResult Logout()
         {
             Session.Abandon();
@@ -31,10 +37,12 @@ namespace Blog.Controllers
         {
             if (ModelState.IsValid)
             {
-                Usuario usuario = this.usuarioDAO.Busca(model.LoginName, model.Password);
+                UsuarioManager manager = HttpContext.GetOwinContext().GetUserManager<UsuarioManager>();
+                Usuario usuario = manager.Find(model.LoginName, model.Password);
                 if (usuario != null)
                 {
-                    Session["usuario"] = usuario;
+                    ClaimsIdentity identity = manager.CreateIdentity(usuario, DefaultAuthenticationTypes.ApplicationCookie);
+                    HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties() { }, identity);
                     return RedirectToAction("Index", "Post", new { area = "Admin" });
                 }
                 else
@@ -54,18 +62,7 @@ namespace Blog.Controllers
         [HttpPost]
         public ActionResult Cadastra(RegistroViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                Usuario usuario = new Usuario()
-                {
-                    Nome = model.LoginName,
-                    Email = model.Email,
-                    Senha = model.Senha
-                };
-                usuarioDAO.Adiciona(usuario);
-                return RedirectToAction("Login");
-            }
-            return View("Novo", model);
+            throw new NotImplementedException();
         }
     }
 }

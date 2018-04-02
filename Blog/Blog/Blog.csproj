@@ -243,6 +243,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -251,12 +252,12 @@
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DAO\PostDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
-    <Compile Include="Filters\AutorizacaoFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infra\BlogContext.cs" />
     <Compile Include="Infra\ConnectionFactory.cs" />
+    <Compile Include="Infra\UsuarioManager.cs" />
     <Compile Include="Migrations\201803142020454_Inicial.cs" />
     <Compile Include="Migrations\201803142020454_Inicial.Designer.cs">
       <DependentUpon>201803142020454_Inicial.cs</DependentUpon>
@@ -268,6 +269,10 @@
     <Compile Include="Migrations\201803142122050_ValidacaoPost.cs" />
     <Compile Include="Migrations\201803142122050_ValidacaoPost.Designer.cs">
       <DependentUpon>201803142122050_ValidacaoPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804020918288_AdicionaIdentity.cs" />
+    <Compile Include="Migrations\201804020918288_AdicionaIdentity.Designer.cs">
+      <DependentUpon>201804020918288_AdicionaIdentity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -319,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803142122050_ValidacaoPost.resx">
       <DependentUpon>201803142122050_ValidacaoPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804020918288_AdicionaIdentity.resx">
+      <DependentUpon>201804020918288_AdicionaIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

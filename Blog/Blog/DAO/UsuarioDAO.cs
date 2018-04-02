@@ -1,6 +1,10 @@
 ﻿using Blog.Infra;
 using Blog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Linq;
+using System.Web;
 
 namespace Blog.DAO
 {
@@ -15,17 +19,15 @@ namespace Blog.DAO
 
         public Usuario Busca(string login, string senha)
         {
-            return contexto.Usuarios
-                        .Where(usuario => usuario.Nome.Equals(login) && usuario.Senha.Equals(senha))
-                        .FirstOrDefault<Usuario>();
+            UsuarioManager manager = HttpContext.Current.GetOwinContext().GetUserManager<UsuarioManager>();
+            Usuario retorno = manager.Find(login, senha);
+            return retorno;
         }
 
         public void Adiciona(Usuario usuario)
         {
-            contexto.Usuarios.Add(usuario);
+            contexto.Users.Add(usuario);
             contexto.SaveChanges();
         }
-
-        
     }
 }
