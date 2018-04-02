@@ -25,5 +25,7 @@ namespace Blog.DAO
             contexto.Usuarios.Add(usuario);
             contexto.SaveChanges();
         }
+
+        
     }
 }

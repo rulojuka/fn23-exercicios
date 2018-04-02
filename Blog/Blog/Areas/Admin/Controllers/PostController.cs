@@ -34,15 +34,14 @@ namespace Blog.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                post.Autor = (Usuario) Session["usuario"];
-                dao.Adiciona(post);
+                Usuario logado = (Usuario) Session["usuario"];
+                dao.Adiciona(post, logado);
                 return RedirectToAction("Index");
             }
             else
             {
                 return View("NovoPost", post);
             }
-            
         }
 
         public ActionResult Categoria([Bind(Prefix = "id")] string categoria)
