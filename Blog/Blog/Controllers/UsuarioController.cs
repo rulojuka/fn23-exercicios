@@ -28,7 +28,7 @@ namespace Blog.Controllers
         [Authorize]
         public ActionResult Logout()
         {
-            Session.Abandon();
+            HttpContext.GetOwinContext().Authentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
@@ -43,6 +43,7 @@ namespace Blog.Controllers
                 {
                     ClaimsIdentity identity = manager.CreateIdentity(usuario, DefaultAuthenticationTypes.ApplicationCookie);
                     HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties() { }, identity);
+                    usuarioDAO.AtualizaLogin(usuario);
                     return RedirectToAction("Index", "Post", new { area = "Admin" });
                 }
                 else
@@ -62,7 +63,33 @@ namespace Blog.Controllers
         [HttpPost]
         public ActionResult Cadastra(RegistroViewModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                Usuario usuario = new Usuario()
+                {
+                    UserName = model.LoginName,
+                    Email = model.Email
+                };
+                UsuarioManager manager = HttpContext.GetOwinContext().GetUserManager<UsuarioManager>();
+                IdentityResult resultado = manager.Create(usuario, model.Senha);
+                if (resultado.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (string erro in resultado.Errors)
+                    {
+                        ModelState.AddModelError("", erro);
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        public ActionResult Index()
+        {
+            return View(usuarioDAO.Lista());
         }
     }
 }

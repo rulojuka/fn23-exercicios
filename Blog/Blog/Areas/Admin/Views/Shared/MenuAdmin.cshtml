@@ -2,7 +2,8 @@
     <h1>Administração</h1>
     <div>
         <ul>
-            <li>@Html.ActionLink("Posts", "Index", "Post")</li>
+            <li>@Html.ActionLink("Posts", "Index", "Post", new { area = "Admin" }, new { })</li>
+            <li>@Html.ActionLink("Usuarios", "Index", "Usuario", new { area = "" }, new { })</li>
         </ul>
     </div>
 </aside>

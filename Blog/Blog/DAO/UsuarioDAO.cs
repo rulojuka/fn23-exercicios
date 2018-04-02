@@ -3,6 +3,7 @@ using Blog.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -27,6 +28,18 @@ namespace Blog.DAO
         public void Adiciona(Usuario usuario)
         {
             contexto.Users.Add(usuario);
+            contexto.SaveChanges();
+        }
+
+        public IList<Usuario> Lista()
+        {
+            return contexto.Users.ToList();
+        }
+
+        public void AtualizaLogin(Usuario usuario)
+        {
+            Usuario usuarioDoBanco = contexto.Users.Find(usuario.Id);
+            usuarioDoBanco.UltimoLogin = DateTime.Now;
             contexto.SaveChanges();
         }
     }
