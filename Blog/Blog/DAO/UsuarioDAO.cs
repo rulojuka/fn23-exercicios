@@ -42,5 +42,11 @@ namespace Blog.DAO
             usuarioDoBanco.UltimoLogin = DateTime.Now;
             contexto.SaveChanges();
         }
+
+        public Usuario UsuarioLogado()
+        {
+            UsuarioManager manager = HttpContext.Current.GetOwinContext().GetUserManager<UsuarioManager>();
+            return contexto.Users.Find(HttpContext.Current.User.Identity.GetUserId());
+        }
     }
 }

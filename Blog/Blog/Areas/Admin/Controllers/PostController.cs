@@ -9,10 +9,12 @@ namespace Blog.Areas.Admin.Controllers
     public class PostController : Controller
     {
         private PostDAO dao;
+        private UsuarioDAO usuarioDAO;
 
-        public PostController(PostDAO dao)
+        public PostController(PostDAO dao, UsuarioDAO usuarioDAO)
         {
             this.dao = dao;
+            this.usuarioDAO = usuarioDAO;
         }
 
         // GET: Post
@@ -32,13 +34,12 @@ namespace Blog.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Usuario logado = (Usuario) Session["usuario"];
-                dao.Adiciona(post, logado);
+                dao.Adiciona(post, usuarioDAO.UsuarioLogado());
                 return RedirectToAction("Index");
             }
             else
             {
-                return View("NovoPost", post);
+                return View(post);
             }
         }
 
