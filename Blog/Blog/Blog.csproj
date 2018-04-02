@@ -250,6 +250,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\RegistroViewModel.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -279,6 +280,7 @@
     <Content Include="Views\Shared\Rodape.cshtml" />
     <Content Include="Views\Shared\Lateral.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Usuario\Novo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
