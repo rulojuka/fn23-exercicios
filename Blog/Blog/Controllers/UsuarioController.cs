@@ -1,4 +1,5 @@
 ﻿using Blog.DAO;
+using Blog.Filters;
 using Blog.Models;
 using System.Web.Mvc;
 
@@ -16,6 +17,13 @@ namespace Blog.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [AutorizacaoFilter]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
