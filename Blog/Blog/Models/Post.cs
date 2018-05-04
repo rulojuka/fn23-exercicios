@@ -9,11 +9,11 @@ namespace Blog.Models
     public class Post
     {
         public int Id { get; set; }
-        [Required(ErrorMessage="Por favor, preencha o campo Título")]
-        [StringLength(20, ErrorMessage = "Digite no máximo 20 caracteres")]
+        [Required]
+        [StringLength(50)]
         [Display(Name = "Título")]
         public string Titulo { get; set; }
-        [Required(ErrorMessage = "Por favor, preencha o campo Resumo")]
+        [Required]
         public string Resumo { get; set; }
         public string Categoria { get; set; }
         public DateTime? DataPublicacao { get; set; }

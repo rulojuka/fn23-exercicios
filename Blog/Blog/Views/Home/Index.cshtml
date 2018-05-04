@@ -1,17 +1,22 @@
 ﻿@model IList<Blog.Models.Post>
-
-@if(ViewBag.Termo != null)
-{
-    <h3>Foi realizada uma busca por @ViewBag.Termo</h3>
-}
+<div>
+    @if (ViewBag.Termo != null)
+    {
+        <h3>Foi realizada uma busca por "@ViewBag.Termo"</h3>
+    }
     @if (Model.Count == 0)
     {
-        <article><p>Não foram encontrados resultados para a busca.</p></article>
+        <article><p>Não foram encontrados posts.</p></article>
     }
-@foreach (var p in Model)
-{
-    <article>
-        <h1>@p.Titulo</h1>
-        <p>@p.Resumo</p>
-    </article>
-}
+    @foreach (var p in Model)
+    {
+        <article>
+            <h1>@p.Titulo</h1>
+            <p>@p.Resumo</p>
+            @if (@p.Autor != null)
+            {
+                <p><small>Escrito por @p.Autor.UserName</small></p>
+            }
+        </article>
+    }
+</div>

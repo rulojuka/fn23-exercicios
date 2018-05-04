@@ -1,25 +1,30 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Resenha Cultural</title>
-    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Content/themes/base/jquery-ui.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/bootstrap.css" type="text/css" />
     <link rel="stylesheet" href="~/Content/estilo.css" type="text/css" />
-
 </head>
 <body>
+    <!-- cabeçalho -->
     @Html.Partial("Cabecalho")
 
-    <div class="container">
+    <div class="container clearfix">
+        <!-- região principal -->
         <main>
             @RenderBody()
         </main>
+
+        <!-- menu lateral -->
         @Html.Partial("Lateral")
     </div>
+
+    <!-- rodapé -->
     @Html.Partial("Rodape")
 
+    <!-- seção opcional para carregar os scripts -->
     @RenderSection("Scripts", false)
 </body>
 </html>

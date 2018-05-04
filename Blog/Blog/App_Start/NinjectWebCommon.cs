@@ -5,12 +5,11 @@ namespace Blog.App_Start
 {
     using System;
     using System.Web;
-
+    using Blog.Infra;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
     using Ninject.Web.Common;
-    using Blog.Infra;
 
     public static class NinjectWebCommon 
     {
@@ -54,7 +53,9 @@ namespace Blog.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<BlogContext>().ToSelf().InRequestScope();
+            kernel.Bind<BlogContext>()
+                .ToSelf()
+                .InRequestScope();
         }        
     }
 }

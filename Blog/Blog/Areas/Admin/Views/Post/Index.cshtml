@@ -1,46 +1,38 @@
 ﻿@model IList<Blog.Models.Post>
 <h2>Lista de Posts</h2>
-@Html.ActionLink("Novo Post!", "Novo", null, new { @class = "btn btn-primary"})
+@Html.ActionLink("Incluir Post", "NovoPost", null, new { @class = "btn btn-primary" })
 <table class="table table-striped table-hover table-bordered">
     <caption>Lista dos posts cadastrados no blog.</caption>
     <thead>
         <tr>
             <th>Post</th>
             <th>Categoria</th>
-            <th>Autor</th>
-            <th>Publicado em</th>
+            <th>Publicado Em</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-        @foreach( var item in Model)
+        @foreach (var p in Model)
         {
             <tr>
                 <td>
-                    <h4>@Html.ActionLink(item.Titulo, "Edit", new { Id = item.Id })</h4>
-                    <p>@item.Resumo</p>
+                    <h4>@Html.ActionLink(p.Titulo, "Visualiza", new { Id = p.Id })</h4>
+                    <p>@p.Resumo</p>
                 </td>
-                <td>@item.Categoria</td>
-                @if (item.Autor != null)
-                {
-                    <td>@item.Autor.UserName</td>}
-                else
-                {
-                    <td>Sem autor</td>
-                }
+                <td>@p.Categoria</td>
                 <td>
-                    @if (@item.Publicado)
+                    @if (p.Publicado)
                     {
-                        @Html.Encode(item.DataPublicacao)
+                        @Html.Raw(string.Format("{0:dd/MM/yyyy}", p.DataPublicacao))
                     }
                     else
                     {
-                        @Html.Raw("Não publicado")
+                        @Html.Raw("Não Publicado")
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Excluir", "Remove", new { Id = item.Id })
-                    @Html.ActionLink("Publicar", "Publicar", new { Id = item.Id })
+                    @Html.ActionLink("Remover", "RemovePost", new { id = p.Id })
+                    @Html.ActionLink("Publicar", "PublicaPost", new { id = p.Id })
                 </td>
             </tr>
         }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Models
 {
     public class RegistroViewModel
     {
         [Required]
-        [Display(Name = "Usuário")]
+        [Display(Name = "Nome")]
         public string LoginName { get; set; }
 
         [Required]
@@ -20,8 +16,8 @@ namespace Blog.Models
         public string Senha { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
         [Compare("Senha")]
+        [DataType(DataType.Password)]
         [Display(Name = "Confirmação da senha")]
         public string ConfirmacaoSenha { get; set; }
     }

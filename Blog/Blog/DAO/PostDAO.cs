@@ -1,53 +1,74 @@
 ﻿using Blog.Infra;
 using Blog.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 
 namespace Blog.DAO
 {
     public class PostDAO
     {
+
         private BlogContext contexto;
 
         public PostDAO(BlogContext contexto)
         {
             this.contexto = contexto;
         }
-        public void Adiciona(Post post, Usuario usuario)
+
+        public IList<Post> Lista()
         {
-            post.Autor = usuario;
+            var lista = contexto.Posts.ToList();
+            return lista;
+        }
+
+        public IList<Post> ListaPublicados()
+        {
+            return contexto.Posts.Where(p => p.Publicado).OrderByDescending(p => p.DataPublicacao).ToList();
+        }
+
+        public void Adiciona(Post post)
+        {
             contexto.Posts.Add(post);
             contexto.SaveChanges();
         }
 
-        public IList<Post> Lista()
+        public void Adiciona(Post post, Usuario usuario)
         {
-            IList<Post> lista;
-            lista = contexto.Posts.ToList();
+            contexto.Posts.Add(post);
+            contexto.Users.Attach(usuario);
+            post.Autor = usuario;
             contexto.SaveChanges();
-            return lista;
         }
 
-        public IList<Post> BuscaCategoria(string categoria)
+
+        public IList<Post> FiltraPorCategoria(string categoria)
         {
-            IList<Post> lista;
-            //Usando os métodos do LINQ
-            lista = contexto.Posts.Where(post => post.Categoria.Contains(categoria)).ToList();
-
-            // Usando sql no LINQ
-            //var query = from p in contexto.Posts where p.Categoria.Contains(categoria) select p;
-            //lista = query.ToList();
+            //var lista = contexto.Posts.Where(post => post.Categoria.Contains(categoria)).ToList();
+            var lista = (from p in contexto.Posts where p.Categoria.Contains(categoria) select p).ToList();
             return lista;
         }
 
-        public void Edita(Post post)
+        public void Remove(int id)
+        {
+            var post = contexto.Posts.Find(id);
+            contexto.Posts.Remove(post);
+            contexto.SaveChanges();
+
+            // Para fazer em apenas uma query
+            //Post post = new Post { Id = id };
+            //contexto.Entry(post).State = EntityState.Deleted;
+            //contexto.SaveChanges();
+        }
+
+        public Post BuscaPorId(int id)
+        {
+            var post = contexto.Posts.Find(id);
+            return post;
+        }
+
+        public void Atualiza(Post post)
         {
             contexto.Entry(post).State = EntityState.Modified;
             contexto.SaveChanges();
@@ -61,36 +82,21 @@ namespace Blog.DAO
             contexto.SaveChanges();
         }
 
-        public Post BuscaPost(int id)
-        {
-            Post post;
-            post = contexto.Posts.Find(id);
-            return post;
-        }
-
-        public IList<string> Autocomplete(string term)
-        {
-            var model = contexto.Posts
-                .Where(p => p.Categoria.Contains(term))
-                .Select(p => p.Categoria)
-                .Distinct()
-                .ToList();
-            return model;
-        }
-
-        public void Remove(int id)
-        {
-            Post post = contexto.Posts.Find(id);
-            contexto.Posts.Remove(post);
-            contexto.SaveChanges();
-        }
-
-        public IList<Post> Busca(string termo)
+        public IList<string> ListaCategoriasQueContemTermo(string termo)
         {
             return contexto.Posts
-                .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Categoria.Contains(termo)))
-                .Select(p => p)
-                .ToList();
+                        .Where(p => p.Categoria.Contains(termo))
+                        .Select(p => p.Categoria)
+                        .Distinct()
+                        .ToList();
+        }
+
+        public IList<Post> BuscaPeloTermo(string termo)
+        {
+            return contexto.Posts
+                    .Where(p => (p.Publicado) && (p.Titulo.Contains(termo) || p.Resumo.Contains(termo)))
+                    .Select(p => p)
+                    .ToList();
         }
     }
 }

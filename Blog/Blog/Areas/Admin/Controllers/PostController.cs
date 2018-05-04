@@ -1,9 +1,6 @@
 ﻿using Blog.DAO;
 using Blog.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Areas.Admin.Controllers
@@ -11,33 +8,33 @@ namespace Blog.Areas.Admin.Controllers
     [Authorize]
     public class PostController : Controller
     {
-        PostDAO postDAO;
-        UsuarioDAO usuarioDAO;
+        private PostDAO dao;
+        private UsuarioDAO usuarioDAO;
 
-        public PostController(PostDAO postDAO, UsuarioDAO usuarioDAO)
+        public PostController(PostDAO dao, UsuarioDAO usuarioDAO)
         {
-            this.postDAO = postDAO;
+            this.dao = dao;
             this.usuarioDAO = usuarioDAO;
         }
 
-        // GET: Admin/Post
+        // GET: Post
         public ActionResult Index()
         {
-            return View(postDAO.Lista());
+            var listaDePosts = dao.Lista();
+            return View(listaDePosts);
         }
 
-        [HttpGet]
-        public ActionResult Novo()
+        public ActionResult NovoPost()
         {
-            return View();
+            return View(new Post());
         }
 
         [HttpPost]
-        public ActionResult Novo(Post post)
+        public ActionResult AdicionaPost(Post post)
         {
             if (ModelState.IsValid)
             {
-                postDAO.Adiciona(post, usuarioDAO.UsuarioLogado());
+                dao.Adiciona(post, usuarioDAO.UsuarioLogado());
                 return RedirectToAction("Index");
             }
             else
@@ -45,42 +42,51 @@ namespace Blog.Areas.Admin.Controllers
                 return View(post);
             }
         }
-        [HttpGet]
-        public ActionResult Edit(int id)
+
+        public ActionResult Categoria([Bind(Prefix = "id")] string categoria)
         {
-            return View(postDAO.BuscaPost(id));
+            IList<Post> lista = dao.FiltraPorCategoria(categoria);
+            return View("Index", lista);
+        }
+
+        public ActionResult RemovePost(int id)
+        {
+            dao.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Visualiza(int id)
+        {
+            Post post = dao.BuscaPorId(id);
+            return View(post);
         }
 
         [HttpPost]
-        public ActionResult Edit(Post post)
+        public ActionResult EditaPost(Post post)
         {
             if (ModelState.IsValid)
             {
-                postDAO.Edita(post);
+                dao.Atualiza(post);
                 return RedirectToAction("Index");
             }
             else
             {
                 return View("Visualiza", post);
             }
+            
         }
 
-        public ActionResult Remove(int id)
+        public ActionResult PublicaPost(int id)
         {
-            postDAO.Remove(id);
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Publicar(int id)
-        {
-            postDAO.Publica(id);
+            dao.Publica(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult CategoriaAutocomplete(string term)
+        public ActionResult CategoriaAutocomplete(string termoDigitado)
         {
-            return Json(postDAO.Autocomplete(term));
+            var model = dao.ListaCategoriasQueContemTermo(termoDigitado);
+            return Json(model);
         }
     }
 }

@@ -1,49 +1,32 @@
 ﻿using Blog.DAO;
 using Blog.Infra;
 using Blog.Models;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.Controllers
 {
     public class HomeController : Controller
     {
-        PostDAO postDAO;
+        private PostDAO dao;
 
-        public HomeController(PostDAO postDAO)
+        public HomeController(PostDAO dao)
         {
-            this.postDAO = postDAO;
+            this.dao = dao;
         }
 
         // GET: Home
         public ActionResult Index()
         {
-            return View(postDAO.Lista());
-        }
-
-        public ActionResult Categoria([Bind(Prefix = "id")] string categoria)
-        {
-            return View("Index", postDAO.BuscaCategoria(categoria));
-        }
-
-        [HttpPost]
-        public ActionResult CategoriaAutocomplete(string term)
-        {
-            return Json(postDAO.Autocomplete(term));
+            IList<Post> publicados = dao.ListaPublicados();
+            return View(publicados);
         }
 
         public ActionResult Busca(string termo)
         {
-            IList<Post> lista = postDAO.Busca(termo);
-            ViewBag.FezBusca = true;
-            ViewBag.Vazio = (lista.Count == 0);
+            IList<Post> posts = dao.BuscaPeloTermo(termo);
             ViewBag.Termo = termo;
-            return View("Index", lista);
+            return View("Index", posts);
         }
     }
 }

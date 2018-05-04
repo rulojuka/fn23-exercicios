@@ -1,18 +1,18 @@
 ﻿using Blog.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
+using System.Diagnostics;
 
 namespace Blog.Infra
 {
     public class BlogContext : IdentityDbContext<Usuario>
     {
-        public DbSet<Post> Posts { get; set; }
         public BlogContext() : base("name=blog")
         {
+            // Loga as SQLs
+            Database.Log = s => Debug.Write(s);
         }
+
+        public DbSet<Post> Posts { get; set; }
     }
 }

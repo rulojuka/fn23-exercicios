@@ -1,13 +1,11 @@
 ﻿using Blog.Infra;
 using Blog.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Blog.DAO
 {
@@ -20,6 +18,18 @@ namespace Blog.DAO
             this.contexto = contexto;
         }
 
+        public Usuario Busca(string login, string senha)
+        {
+            UsuarioManager manager = HttpContext.Current.GetOwinContext().GetUserManager<UsuarioManager>();
+            Usuario retorno = manager.Find(login, senha);
+            return retorno;
+        }
+
+        public void Adiciona(Usuario usuario)
+        {
+            contexto.Users.Add(usuario);
+            contexto.SaveChanges();
+        }
 
         public IList<Usuario> Lista()
         {
@@ -37,41 +47,6 @@ namespace Blog.DAO
         {
             UsuarioManager manager = HttpContext.Current.GetOwinContext().GetUserManager<UsuarioManager>();
             return contexto.Users.Find(HttpContext.Current.User.Identity.GetUserId());
-        }
-
-        public Usuario BuscaPorNome(string nome)
-        {
-            Usuario usuario = contexto.Users.FirstOrDefault(u => u.UserName.Equals(nome));
-            if (usuario != null)
-            {
-                return usuario;
-            }
-            else
-            {
-                throw new ArgumentException("Usuario nao encontrado");
-            }
-        }
-
-        public void CriaPapel(string nomeDoPapel)
-        {
-            PermissaoManager permissaoManager =  HttpContext.Current.GetOwinContext().Get<PermissaoManager>();
-            if (!permissaoManager.RoleExists(nomeDoPapel))
-            {
-                var papel = new IdentityRole();
-                papel.Name = nomeDoPapel;
-                permissaoManager.Create(papel);
-            }
-            else
-            {
-                throw new ArgumentException("Já existe um Role com esse nome");
-            }
-        }
-
-        public void AdicionaPapelAoUsuario(string papel, string username)
-        {
-            UsuarioManager manager = HttpContext.Current.GetOwinContext().GetUserManager<UsuarioManager>();
-            Usuario usuarioDoBanco = BuscaPorNome(username);
-            manager.AddToRole(usuarioDoBanco.Id, papel);
         }
     }
 }

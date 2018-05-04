@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Models
 {
@@ -11,6 +7,7 @@ namespace Blog.Models
         [Required]
         [Display(Name = "Usuário")]
         public string LoginName { get; set; }
+
         [Required]
         [Display(Name = "Senha")]
         [DataType(DataType.Password)]

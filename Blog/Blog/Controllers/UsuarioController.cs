@@ -1,11 +1,10 @@
 ﻿using Blog.DAO;
+using Blog.Infra;
 using Blog.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
@@ -14,9 +13,7 @@ namespace Blog.Controllers
 {
     public class UsuarioController : Controller
     {
-
-        UsuarioDAO usuarioDAO;
-
+        private UsuarioDAO usuarioDAO;
         public UsuarioController(UsuarioDAO usuarioDAO)
         {
             this.usuarioDAO = usuarioDAO;
@@ -28,8 +25,15 @@ namespace Blog.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Autentica(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -40,29 +44,24 @@ namespace Blog.Controllers
                     ClaimsIdentity identity = manager.CreateIdentity(usuario, DefaultAuthenticationTypes.ApplicationCookie);
                     HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties() { }, identity);
                     usuarioDAO.AtualizaLogin(usuario);
+                    return RedirectToAction("Index", "Post", new { area = "Admin" });
                 }
-                return RedirectToAction("Index", "Post", new { area = "Admin" });
+                else
+                {
+                    ModelState.AddModelError("login.Invalido", "Login ou senha incorretos");
+                }
             }
-            else
-            {
-                return View(model);
-            }
-        }
-        [Authorize]
-        public ActionResult Logout()
-        {
-            HttpContext.GetOwinContext().Authentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return View("Login", model);
         }
 
         [HttpGet]
-        public ActionResult Registro()
+        public ActionResult Novo()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Registro(RegistroViewModel model)
+        public ActionResult Cadastra(RegistroViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -79,15 +78,15 @@ namespace Blog.Controllers
                 }
                 else
                 {
-                    foreach(string erro in resultado.Errors)
+                    foreach (string erro in resultado.Errors)
                     {
-                        ModelState.AddModelError("blabla", erro);
+                        ModelState.AddModelError("", erro);
                     }
                 }
             }
             return View(model);
         }
-        [Authorize]
+
         public ActionResult Index()
         {
             return View(usuarioDAO.Lista());

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Toshiba")]
 [assembly: AssemblyProduct("Blog")]
-[assembly: AssemblyCopyright("Copyright © Toshiba 2017")]
+[assembly: AssemblyCopyright("Copyright © Toshiba 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e49967ff-9218-48d5-840a-9a677d1e2169")]
+[assembly: Guid("25038440-757f-4564-9e22-5ee1a8da5a38")]
 
 // Version information for an assembly consists of the following four values:
 //
